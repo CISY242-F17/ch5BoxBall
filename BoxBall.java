@@ -3,9 +3,9 @@ import java.awt.geom.*;
 import java.util.Random; 
 
 /**
- * BoxBall moves the balls inside the box
- * gives random initial positon and speed for the balls 
- * boxBounce method specifies how many balls are in the box.
+ * BoxBall moves the balls inside the box.
+ * Gives random initial positon and speed for the balls 
+ * 
  *
  * @author Olive Tamondong
  * @version 2017.10.22
@@ -17,7 +17,7 @@ public class BoxBall
     private int ballDegradation = 1;
     private Ellipse2D.Double circle;
     private Color color;
-    private int diameter = 50;
+    private int diameter = 16;
     private int xPosition;
     private int yPosition;
     
@@ -56,21 +56,27 @@ public class BoxBall
         Random random = new Random();
         
         //randomize position
-        xPosition = random.nextInt(rightWall - leftWall) + leftWall; 
-        yPosition = random.nextInt(groundPosition - ceiling) + ceiling;
+        xPosition = random.nextInt(rightWall - leftWall); 
+        yPosition = random.nextInt(groundPosition  - ceiling);
         
         //randomize speed
         xSpeed = random.nextInt(xSpeed) + 1; 
         ySpeed = random.nextInt(ySpeed) + 1; 
         
-        diameter = random.nextInt(diameter); 
         
         //random colors
-        float r = random.nextFloat();
-        float g = random.nextFloat();
-        float b = random.nextFloat();
+        Random r = new Random(); 
+        int red = r.nextInt(250) + 2;
+        Random g = new Random();
+        int green = g.nextInt(250) + 2;
+        Random b = new Random();
+        int blue = b.nextInt(250) + 2;
         
-        Color randomColor = new Color(r, g, b);
+        color = new Color(red ,green , blue);
+
+       
+       
+
         
         
     }
@@ -102,6 +108,7 @@ public class BoxBall
             
         // compute new position
         ySpeed += GRAVITY;
+        xSpeed += GRAVITY;
         yPosition += ySpeed;
         xPosition += xSpeed;
 
@@ -111,23 +118,25 @@ public class BoxBall
             ySpeed = -ySpeed + ballDegradation; 
         }
         
-        // check if it has hit the ceiling
-        if(yPosition <= (groundPosition - diameter) && ySpeed > 0) {
-            yPosition = (int)(ceiling - diameter);
-            ySpeed = -ySpeed + ballDegradation; 
-        }
         
-        // check if it has hit the left wall
-        if(xPosition >= (rightWall - diameter) && xSpeed > 0) {
-            xPosition = (int)(rightWall - diameter);
-            xSpeed = -xSpeed + ballDegradation; 
+        // check if it has hit the ceiling
+        if(yPosition <= (ceiling + diameter)) {
+            yPosition = (int)(ceiling + diameter);
+            ySpeed = ySpeed + ballDegradation; 
         }
         
         // check if it has hit the right wall
-        if(xPosition <= (leftWall - diameter) && xSpeed > 0) {
-            xPosition = (int)(leftWall - diameter);
-            xSpeed = -xSpeed + ballDegradation; 
+        if(xPosition >= (rightWall - diameter)) {
+            xPosition = (int)(rightWall - diameter);
+            xSpeed = -xSpeed; 
         }
+        
+        // check if it has hit the left wall
+        if(xPosition <= (leftWall + diameter)) {
+            xPosition = (int)(leftWall + diameter);
+            xSpeed = xSpeed - ballDegradation; 
+        }
+        
 
         // draw again at new position
         draw();

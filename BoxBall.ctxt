@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=BoxBall
-comment0.text=\n\ BoxBall\ moves\ the\ balls\ inside\ the\ box\n\ gives\ random\ initial\ positon\ and\ speed\ for\ the\ balls\ \n\ boxBounce\ method\ specifies\ how\ many\ balls\ are\ in\ the\ box.\n\n\ @author\ Olive\ Tamondong\n\ @version\ 2017.10.22\n
+comment0.text=\n\ BoxBall\ moves\ the\ balls\ inside\ the\ box.\n\ Gives\ random\ initial\ positon\ and\ speed\ for\ the\ balls\ \n\ \n\n\ @author\ Olive\ Tamondong\n\ @version\ 2017.10.22\n
 comment1.params=rWall\ lWall\ ceil\ groundPos\ drawingCanvas
 comment1.target=BoxBall(int,\ int,\ int,\ int,\ Canvas)
 comment1.text=\n\ Constructor\ for\ objects\ of\ class\ BouncingBall\n\n\ @param\ xPos\ \ the\ horizontal\ coordinate\ of\ the\ ball\n\ @param\ yPos\ \ the\ vertical\ coordinate\ of\ the\ ball\n\ @param\ ballDiameter\ \ the\ diameter\ (in\ pixels)\ of\ the\ ball\n\ @param\ ballColor\ \ the\ color\ of\ the\ ball\n\ @param\ groundPos\ \ the\ position\ of\ the\ ground\ (where\ the\ wall\ will\ bounce)\n\ @param\ drawingCanvas\ \ the\ canvas\ to\ draw\ this\ ball\ on\n
