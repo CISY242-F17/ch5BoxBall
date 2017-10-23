@@ -21,9 +21,16 @@ public class BallDemo
     /**
      * Create a BallDemo object. Creates a fresh canvas and makes it visible.
      */
-    public BallDemo()
+    public BallDemo(int height, int width)
     {
-        myCanvas = new Canvas("Ball Demo", 600, 500);
+        if(height < 100){
+            height = 100;
+        }
+        if(width < 100){
+            height = 100;
+        }
+        
+        myCanvas = new Canvas("Ball Demo", width, height);
     }
     
     /**
@@ -69,9 +76,9 @@ public class BallDemo
     private static Color generateRandomColor()
     {
         Random value = new Random();
-        int red = value.nextInt(207) + 50;
-        int green = value.nextInt(207) + 50;
-        int blue = value.nextInt(207) + 50;
+        int red = value.nextInt(206) + 50;
+        int green = value.nextInt(206) + 50;
+        int blue = value.nextInt(206) + 50;
         
         Color randomColor = new Color(red, green, blue);
         return randomColor;

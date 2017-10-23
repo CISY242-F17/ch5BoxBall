@@ -46,8 +46,8 @@ public class boxBall
         Random speed = new Random();
         
         diameter = generateRandom(10, 20);
-        xPosition = generateRandom(60, (540 - diameter));
-        yPosition = generateRandom(60, (440 - diameter));
+        xPosition = generateRandom((left + 10), (right - diameter));
+        yPosition = generateRandom((top + 10), (bottom - diameter));
         color = ballColor;
         topWall = top;
         bottomWall = bottom;
