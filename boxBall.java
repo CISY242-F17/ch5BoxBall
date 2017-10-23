@@ -75,7 +75,7 @@ public class boxBall
         Random speed = new Random();
         int s = speed.nextInt((max-min) + 1) + min;
         if(s == 7){
-            generateRandomSpeed(0, 15);
+            s = generateRandomSpeed(0, 15);
         }
         return s;
     }

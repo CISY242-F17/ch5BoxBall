@@ -9,8 +9,8 @@ import java.util.ArrayList;
  * @author Bill Crosbie
  * @version 2015-March-BB
  *
- * @author Michael Kölling and David J. Barnes
- * @version 2011.07.31
+ * @author Michael Kölling and David J. Barnes with additions by Coriander M. Laidlaw
+ * @version 2017.10.23
  */
 
 public class BallDemo   
@@ -23,11 +23,13 @@ public class BallDemo
      */
     public BallDemo(int height, int width)
     {
-        if(height < 100){
-            height = 100;
+        if(height < 200){
+            height = 200;
+            System.out.println("The input for the height was too small, so it is set to 200.");
         }
-        if(width < 100){
-            height = 100;
+        if(width < 200){
+            width = 200;
+            System.out.println("The input for the width was too small, so it is set to 200.");
         }
         
         myCanvas = new Canvas("Ball Demo", width, height);
@@ -38,15 +40,30 @@ public class BallDemo
      */
     public void boxBounce(int offset, int amount)
     {
-        if(amount < 5 && amount > 30){
+        if(amount < 5 || amount > 30){
             amount = generateRandom(5, 31);
+            System.out.println("Since you chose an invalid number of balls, it has been randomized for you.");
+            System.out.println("Yes, it is unfair that you weren't told the valid numbers beforehand. :)");
+        }
+        if(offset >= (myCanvas.getHeight()/2) - 50 || offset >= (myCanvas.getWidth()/2) - 50){
+            System.out.println("Offset was set to be too big, it has been adjusted to better give the balls space to move.");
+            if(myCanvas.getHeight() <= myCanvas.getWidth()){
+                offset = (myCanvas.getHeight()/2) - 50;
+            }
+            else{
+                offset = (myCanvas.getWidth()/2) - 50;
+            }
+        }
+        if(offset < 1){
+            System.out.println("You want a pretty big box.  As it must fit on the canvas, offset has been set to 1.");
+            offset = 1;
         }
         balls = new ArrayList<boxBall>();
         
         int lowX = offset; // top
-        int highX = 600 - offset; // bottom
+        int highX = myCanvas.getWidth() - offset; // bottom
         int lowY = offset; // left
-        int highY = 500 - offset; // right
+        int highY = myCanvas.getHeight() - offset; // right
         
         myCanvas.setVisible(true);
         
@@ -62,6 +79,9 @@ public class BallDemo
             ball.draw();
             balls.add(ball);
             amount = amount - 1;
+            if(amount == 1){
+                System.out.println("Number of balls in the box is " + (balls.size() + 1));
+            }
         }
             myCanvas.wait(50);           // small delay
             for(boxBall balls : balls) {
