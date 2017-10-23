@@ -1,8 +1,19 @@
 #BlueJ class context
-comment0.params=
-comment0.target=BallDemo()
-comment0.text=\r\n\ Create\ a\ BallDemo\ object.\ Creates\ a\ fresh\ canvas\ and\ makes\ it\ visible.\r\n
-comment1.params=
-comment1.target=void\ bounce()
-comment1.text=\r\n\ Simulate\ two\ bouncing\ balls\r\n
-numComments=2
+comment0.target=BallDemo
+comment0.text=\r\n\ Class\ BallDemo\ -\ a\ short\ demonstration\ showing\ animation\ with\ the\ \r\n\ Canvas\ class.\ \r\n\r\n\ @author\ Bill\ Crosbie\r\n\ @version\ 2015-March-BB\r\n\r\n\ @author\ Michael\ K\u00F6lling\ and\ David\ J.\ Barnes\ with\ additions\ by\ Coriander\ M.\ Laidlaw\r\n\ @version\ 2017.10.23\r\n
+comment1.params=height\ width
+comment1.target=BallDemo(int,\ int)
+comment1.text=\r\n\ Create\ a\ BallDemo\ object.\ Creates\ a\ fresh\ canvas\ and\ makes\ it\ visible.\r\n
+comment2.params=offset\ amount
+comment2.target=void\ boxBounce(int,\ int)
+comment2.text=\r\n\ Simulate\ a\ whole\ bunch\ of\ bouncing\ balls.\r\n
+comment3.params=
+comment3.target=java.awt.Color\ generateRandomColor()
+comment3.text=\r\n\ Random\ colour\ generator.\r\n
+comment4.params=min\ max
+comment4.target=int\ generateRandom(int,\ int)
+comment4.text=\r\n\ Random\ number\ generator.\r\n
+comment5.params=
+comment5.target=void\ bounce()
+comment5.text=\r\n\ Simulate\ two\ bouncing\ balls\r\n
+numComments=6
