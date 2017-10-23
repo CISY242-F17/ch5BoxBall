@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.util.Random;
+import java.util.ArrayList;
 
 /**
  * Class BallDemo - a short demonstration showing animation with the 
@@ -15,6 +16,7 @@ import java.util.Random;
 public class BallDemo   
 {
     private Canvas myCanvas;
+    private ArrayList<boxBall> balls;
 
     /**
      * Create a BallDemo object. Creates a fresh canvas and makes it visible.
@@ -24,14 +26,20 @@ public class BallDemo
         myCanvas = new Canvas("Ball Demo", 600, 500);
     }
     
-    public void boxBounce()
+    /**
+     * Simulate a whole bunch of bouncing balls.
+     */
+    public void boxBounce(int offset, int amount)
     {
+        if(amount < 5 && amount > 30){
+            amount = generateRandom(5, 31);
+        }
+        balls = new ArrayList<boxBall>();
         
-        
-        int lowX = 50; // top
-        int highX = 550; // bottom
-        int lowY = 50; // left
-        int highY = 450; // right
+        int lowX = offset; // top
+        int highX = 600 - offset; // bottom
+        int lowY = offset; // left
+        int highY = 500 - offset; // right
         
         myCanvas.setVisible(true);
         
@@ -40,27 +48,42 @@ public class BallDemo
         myCanvas.drawLine(lowX, lowY, highX, lowY); // top line
         myCanvas.drawLine(highX, highY, highX, lowY); // right line
         
-        boxBall ball = new boxBall(lowY, highY, lowX, highX, Color.BLUE, myCanvas);
-        ball.draw();
-        
         boolean finished =  false;
         while(!finished) {
+            while(amount > 0){
+            boxBall ball = new boxBall(lowY, highY, lowX, highX, generateRandomColor(), myCanvas);
+            ball.draw();
+            balls.add(ball);
+            amount = amount - 1;
+        }
             myCanvas.wait(50);           // small delay
-            ball.move();
-            // stop if a ball exits the box
-            if(ball.getXPosition() == (lowX - 1) || ball.getXPosition() == (highX - ball.getDiameter() + 1)) {
-                finished = true;
-            }
-            if(ball.getYPosition() == (lowY - 1) || ball.getYPosition() == (highY - ball.getDiameter() + 1)) {
-                finished = true;
+            for(boxBall balls : balls) {
+                balls.move();
             }
         }
     }
     
+    /**
+     * Random colour generator.
+     **/
+    private static Color generateRandomColor()
+    {
+        Random value = new Random();
+        int red = value.nextInt(207) + 50;
+        int green = value.nextInt(207) + 50;
+        int blue = value.nextInt(207) + 50;
+        
+        Color randomColor = new Color(red, green, blue);
+        return randomColor;
+    }
+    
+    /**
+     * Random number generator.
+     **/
     private static int generateRandom(int min, int max)
     {
-        Random speed = new Random();
-        return speed.nextInt((max-min) + 1) + min;
+        Random number = new Random();
+        return number.nextInt((max-min) + 1) + min;
     }
 
     /**

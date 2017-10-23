@@ -54,12 +54,8 @@ public class boxBall
         leftWall = left;
         rightWall = right;
         canvas = drawingCanvas;
-        ySpeed = generateRandom(0, 15) - 7;
-        if(ySpeed == 0)
-            ySpeed = generateRandom(0, 15) - 7;
-        xSpeed = generateRandom(0, 15) - 7;
-        if(xSpeed == 0)
-            xSpeed = generateRandom(0, 15) - 7;
+        ySpeed = generateRandomSpeed(0, 15) - 7;
+        xSpeed = generateRandomSpeed(0, 15) - 7;
     }
     
     /**
@@ -67,8 +63,21 @@ public class boxBall
      **/
     private static int generateRandom(int min, int max)
     {
+        Random number = new Random();
+        return number.nextInt((max-min) + 1) + min;
+    }
+    
+    /**
+     * Random number generator for speed.
+     **/
+    private static int generateRandomSpeed(int min, int max)
+    {
         Random speed = new Random();
-        return speed.nextInt((max-min) + 1) + min;
+        int s = speed.nextInt((max-min) + 1) + min;
+        if(s == 7){
+            generateRandomSpeed(0, 15);
+        }
+        return s;
     }
 
     /**
@@ -114,7 +123,7 @@ public class boxBall
             xSpeed = -xSpeed;
         }
         if(xPosition <= (leftWall)) {
-            xPosition = (int)(leftWall);
+            xPosition = (int)(leftWall + 1);
             xSpeed = -xSpeed;
         }
 
