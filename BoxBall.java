@@ -28,8 +28,8 @@ public class BoxBall
     
     private Canvas canvas;
     
-    private int ySpeed = 1;                // initial downward speed
-    private int xSpeed = 1;
+    private int ySpeed = 25;                // initial downward speed
+    private int xSpeed = 25;
 
     /**
      * Constructor for objects of class BouncingBall
@@ -60,8 +60,11 @@ public class BoxBall
         yPosition = random.nextInt(groundPosition  - ceiling);
         
         //randomize speed
-        xSpeed = random.nextInt(xSpeed) + 1; 
-        ySpeed = random.nextInt(ySpeed) + 1; 
+        Random xSpd = new Random();
+        xSpeed = xSpd.nextInt(xSpeed) + 1; 
+        
+        Random ySpd = new Random();
+        ySpeed = ySpd.nextInt(ySpeed) + 1; 
         
         
         //random colors
@@ -107,22 +110,22 @@ public class BoxBall
         erase();
             
         // compute new position
-        ySpeed += GRAVITY;
-        xSpeed += GRAVITY;
+        //ySpeed += GRAVITY;
+        //xSpeed += GRAVITY;
         yPosition += ySpeed;
         xPosition += xSpeed;
 
         // check if it has hit the ground
         if(yPosition >= (groundPosition - diameter) && ySpeed > 0) {
             yPosition = (int)(groundPosition - diameter);
-            ySpeed = -ySpeed + ballDegradation; 
+            ySpeed = -ySpeed ; 
         }
         
         
         // check if it has hit the ceiling
-        if(yPosition <= (ceiling + diameter)) {
-            yPosition = (int)(ceiling + diameter);
-            ySpeed = ySpeed + ballDegradation; 
+        if(yPosition <= ceiling) {
+            yPosition = (int)(ceiling );
+            ySpeed = -ySpeed; 
         }
         
         // check if it has hit the right wall
@@ -132,9 +135,9 @@ public class BoxBall
         }
         
         // check if it has hit the left wall
-        if(xPosition <= (leftWall + diameter)) {
-            xPosition = (int)(leftWall + diameter);
-            xSpeed = xSpeed - ballDegradation; 
+        if(xPosition <= leftWall) {
+            xPosition = (int)(leftWall);
+            xSpeed = -xSpeed; 
         }
         
 

@@ -13,8 +13,8 @@ import java.util.Random;
  * @version 2011.07.31
  */
 
-public class BallDemo 
-{
+  public class BallDemo 
+  {
     private Canvas myCanvas;
     
     //dimensions of the canvas
@@ -75,9 +75,14 @@ public class BallDemo
             
             for( int index = 0; index<totalBalls; index++)
             {
+                
                 balls[index].move();
             }
             
+            myCanvas.drawLine(leftWall, ground, rightWall, ground);
+            myCanvas.drawLine(leftWall, ceiling, rightWall, ceiling);
+            myCanvas.drawLine(leftWall, ceiling, leftWall, ground);
+            myCanvas.drawLine(rightWall, ceiling, rightWall, ground);
             // stop once ball has travelled a certain distance on x axis
             //if(ball.getXPosition() >= 550 || ball2.getXPosition() >= 550) {
             //    finished = true;
