@@ -6,6 +6,9 @@ import java.awt.geom.*;
  * Class Canvas - a class to allow for simple graphical 
  * drawing on a canvas.
  * 
+ * @author Sam Thornton
+ * @version 2017.10.23
+ * 
  * @author Michael Kölling (mik)
  * @author Bruce Quig
  *
@@ -19,6 +22,8 @@ public class Canvas
     private Graphics2D graphic;
     private Color backgroundColor;
     private Image canvasImage;
+    private int height;
+    private int width;
 
     /**
      * Create a Canvas with default height, width and background color 
@@ -36,9 +41,11 @@ public class Canvas
      * @param width  the desired width for the canvas
      * @param height  the desired height for the canvas
      */
-    public Canvas(String title, int width, int height)
+    public Canvas(String title, int w, int h)
     {
-        this(title, width, height, Color.white);
+        this(title, w, h, Color.white);
+        height = h;
+        width = w;
     }
 
     /**
@@ -48,16 +55,34 @@ public class Canvas
      * @param height  the desired height for the canvas
      * @param bgClour  the desired background color of the canvas
      */
-    public Canvas(String title, int width, int height, Color bgColor)
+    public Canvas(String title, int wid, int hei, Color bgColor)
     {
         frame = new JFrame();
         canvas = new CanvasPane();
         frame.setContentPane(canvas);
         frame.setTitle(title);
-        canvas.setPreferredSize(new Dimension(width, height));
+        canvas.setPreferredSize(new Dimension(wid, hei));
         backgroundColor = bgColor;
         frame.pack();
         setVisible(true);
+        width = wid;
+        height = hei;
+    }
+    
+    /**
+     * returning the height value
+     */
+    public int getHeight()
+    {
+        return height;
+    }
+    
+    /**
+     * returning the width value
+     */
+    public int getWidth()
+    {
+        return width;
     }
 
     /**

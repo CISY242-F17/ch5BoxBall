@@ -1,8 +1,13 @@
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Class BallDemo - a short demonstration showing animation with the 
  * Canvas class. 
+ *
+ *@author Sam Thornton
+ *@version 2017.10.23
  *
  * @author Bill Crosbie
  * @version 2015-March-BB
@@ -14,43 +19,63 @@ import java.awt.Color;
 public class BallDemo   
 {
     private Canvas myCanvas;
+    private ArrayList<BoxBall> balls;
 
     /**
-     * Create a BallDemo object. Creates a fresh canvas and makes it visible.
+     * Creates a BallDemo object. Creates a canvas and makes it visible.
      */
     public BallDemo()
     {
-        myCanvas = new Canvas("Ball Demo", 600, 500);
+        myCanvas = new Canvas("Ball Demo", 500, 500);
     }
-
+    
     /**
-     * Simulate two bouncing balls
+     * Simulates a number of bouncing balls.
+     *
+     * @param number of balls to simulate
      */
-    public void bounce()
+    public void boxBounce(int amount)
     {
-        int ground = 400;   // position of the ground line
-
+        balls = new ArrayList<BoxBall>();
+        
+        // Creates square based on canvas size.
+        int lowX = 10;
+        int highX = myCanvas.getWidth() - 10;
+        int lowY = 10;
+        int highY = myCanvas.getHeight() - 10;
+              
         myCanvas.setVisible(true);
-
-        // draw the ground
-        myCanvas.drawLine(50, ground, 550, ground);
-
-        // crate and show the balls
-        BouncingBall ball = new BouncingBall(50, 50, 16, Color.BLUE, ground, myCanvas);
-        ball.draw();
-        BouncingBall ball2 = new BouncingBall(70, 80, 20, Color.RED, ground, myCanvas);
-        ball2.draw();
-
-        // make them bounce
+        
+        myCanvas.drawLine(lowX, highY, highX, highY);
+        myCanvas.drawLine(lowX, lowY, lowX, highY);
+        myCanvas.drawLine(lowX, lowY, highX, lowY);
+        myCanvas.drawLine(highX, highY, highX, lowY);
+        
+        // Loop to create desired number of balls.
         boolean finished =  false;
         while(!finished) {
-            myCanvas.wait(50);           // small delay
-            ball.move();
-            ball2.move();
-            // stop once ball has travelled a certain distance on x axis
-            if(ball.getXPosition() >= 550 || ball2.getXPosition() >= 550) {
-                finished = true;
+            while(amount > 0){
+            BoxBall ball = new BoxBall(lowY, highY, lowX, highX, myCanvas);
+            ball.draw();
+            balls.add(ball);
+            amount = amount - 1;
+            }
+            myCanvas.wait(50);
+            for(BoxBall balls : balls) {
+                balls.move();
             }
         }
     }
+    
+    
+    /**
+     * Random number generator.
+     **/
+    
+    private static int generateRandom(int min, int max)
+    {
+        Random number = new Random();
+        return number.nextInt((max-min) + 1) + min;
+    }
+
 }
