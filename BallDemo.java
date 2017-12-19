@@ -1,4 +1,8 @@
 import java.awt.Color;
+import java.util.Random;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.*;
 
 /**
  * Class BallDemo - a short demonstration showing animation with the 
@@ -14,6 +18,7 @@ import java.awt.Color;
 public class BallDemo   
 {
     private Canvas myCanvas;
+    private Random rand = new Random();
 
     /**
      * Create a BallDemo object. Creates a fresh canvas and makes it visible.
@@ -22,35 +27,72 @@ public class BallDemo
     {
         myCanvas = new Canvas("Ball Demo", 600, 500);
     }
-
-    /**
-     * Simulate two bouncing balls
-     */
-    public void bounce()
+    
+    public void boxBounce()
     {
-        int ground = 400;   // position of the ground line
+        // call randomize to place random location of ball
+        Random randomize = new Random(350);
+        int ground = 400;
+        int roof= 50;
+        
+        // gets the size of the canvas by calling the Dimension java class 
+        Dimension size = myCanvas.getSize();
+        int xPos;
+        int yPos;
+        int randX = size.width;
+        int randY = size.height;
+        
+        xPos = randomize.nextInt(randX);
+        yPos = randomize.nextInt(randY);
 
-        myCanvas.setVisible(true);
-
-        // draw the ground
-        myCanvas.drawLine(50, ground, 550, ground);
-
-        // crate and show the balls
-        BouncingBall ball = new BouncingBall(50, 50, 16, Color.BLUE, ground, myCanvas);
+        //create the balls
+        BoxBall ball = new BoxBall(xPos, yPos, 10, 50, 550, ground, roof, myCanvas);
         ball.draw();
-        BouncingBall ball2 = new BouncingBall(70, 80, 20, Color.RED, ground, myCanvas);
-        ball2.draw();
 
-        // make them bounce
-        boolean finished =  false;
-        while(!finished) {
-            myCanvas.wait(50);           // small delay
-            ball.move();
-            ball2.move();
-            // stop once ball has travelled a certain distance on x axis
-            if(ball.getXPosition() >= 550 || ball2.getXPosition() >= 550) {
-                finished = true;
+        BoxBall ball2 = new BoxBall(xPos, yPos, 10, 50, 550, ground, roof, myCanvas);
+        ball2.draw();
+        
+        BoxBall ball3 = new BoxBall(xPos, yPos, 10, 50, 550, ground, roof, myCanvas);
+        ball3.draw();
+        
+        BoxBall ball4 = new BoxBall(xPos, yPos, 10, 50, 550, ground, roof, myCanvas);
+        ball4.draw();
+        
+        BoxBall ball5 = new BoxBall(xPos, yPos, 10, 50, 550, ground, roof, myCanvas);
+        ball5.draw();
+        
+        BoxBall ball6 = new BoxBall(xPos, yPos, 10, 50, 550, ground, roof, myCanvas);
+        ball5.draw();
+        
+        BoxBall ball7 = new BoxBall(xPos, yPos, 10, 50, 550, ground, roof, myCanvas);
+        ball5.draw();
+        
+        BoxBall ball8 = new BoxBall(xPos, yPos, 10, 50, 550, ground, roof, myCanvas);
+        ball5.draw();
+        
+        BoxBall ball9 = new BoxBall(xPos, yPos, 10, 50, 550, ground, roof, myCanvas);
+        ball5.draw();
+        
+            boolean done = false;
+            while(!done)
+            {
+                myCanvas.wait(20); // account for delay
+                ball.move();
+                ball2.move();
+                ball3.move();
+                ball4.move();
+                ball5.move();
+                ball6.move();
+                ball7.move();
+                ball8.move();
+                ball9.move();
+                // draws the rectangle box
+                // note that bechse its in the while loop, it won't get chipped awway
+                myCanvas.setVisible(true);
+                myCanvas.drawLine(50, ground, 550, ground);
+                myCanvas.drawLine(50, roof, 550, roof);
+                myCanvas.drawLine(50, roof, 50, ground);
+                myCanvas.drawLine(550, roof, 550, ground);
             }
-        }
     }
 }
