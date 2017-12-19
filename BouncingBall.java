@@ -18,18 +18,19 @@ import java.awt.geom.*;
 
 public class BouncingBall
 {
-    private static final int GRAVITY = 3;  // effect of gravity
-
     private int ballDegradation = 2;
     private Ellipse2D.Double circle;
     private Color color;
     private int diameter;
     private int xPosition;
     private int yPosition;
+    private int lPosition;
+    private int rPosition;
+    private int tPosition;
     private final int groundPosition;      // y position of ground
     private Canvas canvas;
-    private int ySpeed = 1;                // initial downward speed
-
+    private int ySpeed = 4;                // initial downward speed
+    private int xSpeed = -4;                // initial speed in the y direction
     /**
      * Constructor for objects of class BouncingBall
      *
@@ -41,7 +42,7 @@ public class BouncingBall
      * @param drawingCanvas  the canvas to draw this ball on
      */
     public BouncingBall(int xPos, int yPos, int ballDiameter, Color ballColor,
-                        int groundPos, Canvas drawingCanvas)
+                        int groundPos, int lPos, int tPos, int rPos, Canvas drawingCanvas)
     {
         xPosition = xPos;
         yPosition = yPos;
@@ -49,6 +50,9 @@ public class BouncingBall
         diameter = ballDiameter;
         groundPosition = groundPos;
         canvas = drawingCanvas;
+        lPosition = lPos;
+        tPosition = tPos;
+        rPosition = rPos;
     }
 
     /**
@@ -76,17 +80,34 @@ public class BouncingBall
         // remove from canvas at the current position
         erase();
             
-        // compute new position
-        ySpeed += GRAVITY;
-        yPosition += ySpeed;
-        xPosition +=2;
+        // compute new position 
+        yPosition += ySpeed; // y position +1 
+        xPosition += xSpeed;
 
         // check if it has hit the ground
         if(yPosition >= (groundPosition - diameter) && ySpeed > 0) {
             yPosition = (int)(groundPosition - diameter);
             ySpeed = -ySpeed + ballDegradation; 
         }
-
+        // check if it hits the lwall, note: doesnt need Diameter check!
+        if (xPosition <= (lPosition))
+        {
+            xPosition = (int)(lPosition);
+            xSpeed = -xSpeed;
+        }
+        // check if it hits the Top, note doesn't need diameter check!
+        if (yPosition >= (tPosition))
+        {
+            yPosition = (int)(tPosition);
+            ySpeed = -ySpeed;
+        } 
+        //check if it hits the right wall (needs diamaeter check)
+        if(xPosition >=(rPosition - diameter))
+        {
+            xPosition = (int)(rPosition - diameter);
+            xSpeed = -xSpeed;
+        }
+               
         // draw again at new position
         draw();
     }    
